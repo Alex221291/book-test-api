@@ -22,9 +22,8 @@ let AppController = class AppController {
         this.appService = appService;
         this.authService = authService;
     }
-    index(res) {
-        res.status(404);
-        return res.end();
+    getHello() {
+        return 'Server running';
     }
     async login(req) {
         return this.authService.login(req.user);
@@ -32,11 +31,10 @@ let AppController = class AppController {
 };
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "index", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], AppController.prototype, "getHello", null);
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('auth/login'),

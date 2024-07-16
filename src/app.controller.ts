@@ -12,10 +12,15 @@ export class AppController {
 	) {}
 
 	@Get()
-	index(@Res() res: Response) {
-		res.status(404);
-		return res.end();
-	}
+	getHello(): string {
+    return 'Server running';
+  }
+
+	// @Get()
+	// index(@Res() res: Response) {
+	// 	res.status(404);
+	// 	return res.end();
+	// }
 
 	@UseGuards(LocalAuthGuard)
 	@Post('auth/login')

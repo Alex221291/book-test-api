@@ -5,5 +5,5 @@ import { DateTime } from 'luxon';
 export declare class OfficesService extends BaseService<OfficesEntity> {
     protected repository: Repository<OfficesEntity>;
     constructor(repository: Repository<OfficesEntity>);
-    getOfficeWorkTime(officeId: number, date: DateTime): Promise<any[]>;
+    getOfficeWorkTime(officeId: number, date: DateTime): Promise<(DateTime<true> | DateTime<false>)[]>;
 }

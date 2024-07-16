@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { FileService } from './file.service';
 import { FileEntity } from './file.entity';
 import { ConfigService } from '@nestjs/config';
