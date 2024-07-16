@@ -1,0 +1,30 @@
+import { BaseEntity } from 'typeorm';
+import { ScheduleEntity } from '../schedules/schedules.entity';
+import { CustomerEntity } from '../customers/customer.entity';
+import { OfficesEntity } from '../offices/offices.entity';
+import { CurrencyTypes } from '../../base/types/currency.enum';
+import { BookingsStatuses } from './types/bookings.statuses';
+import { SubscriptionsEntity } from '../subscriptions/subscriptions.entity';
+import { WebFormEntity } from '../webforms/webform.entity';
+import { PaymentsEntity } from '../payments/payments.entity';
+export declare class BookingEntity extends BaseEntity {
+    id: number;
+    hash: string;
+    confirmed: boolean;
+    code: string;
+    price: number;
+    payment: PaymentsEntity;
+    status: BookingsStatuses;
+    currency: CurrencyTypes;
+    comment: string;
+    remindFor: number;
+    remindSent: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    schedules: ScheduleEntity[];
+    office: OfficesEntity;
+    webForm: WebFormEntity;
+    subscription: SubscriptionsEntity;
+    customer: CustomerEntity;
+    constructor();
+}

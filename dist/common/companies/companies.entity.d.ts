@@ -1,0 +1,34 @@
+import { BaseEntity } from 'typeorm';
+import { UserEntity } from '../users/users.entity';
+import { ServiceEntity } from '../services/services.entity';
+import { CustomerEntity } from '../customers/customer.entity';
+import { IntegrationsEntity } from '../integrations/integrations.entity';
+import { FileEntity } from '../file/file.entity';
+import { SubscriptionsPlanEntity } from '../subscriptions/subscriptions.plan.entity';
+import { OfficesEntity } from '../offices/offices.entity';
+import { CategoriesEntity } from '../categories/categories.entity';
+import { NotificationsEntity } from '../notifications/notifications.entity';
+import { TagsEntity } from '../tags/tags.entity';
+export declare class CompanyEntity extends BaseEntity {
+    id: number;
+    title: string;
+    address: string;
+    regNumber: string;
+    logo: FileEntity;
+    description?: string;
+    phone: string;
+    timezone: string;
+    createdAt: Date;
+    updatedAt?: Date;
+    hash: string;
+    users: UserEntity[];
+    services: ServiceEntity[];
+    categories: CategoriesEntity[];
+    integrations?: IntegrationsEntity[];
+    subscriptionPlans?: SubscriptionsPlanEntity[];
+    offices?: OfficesEntity[];
+    customers?: CustomerEntity[];
+    tags?: TagsEntity[];
+    notifications: NotificationsEntity[];
+    constructor();
+}

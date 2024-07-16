@@ -1,0 +1,33 @@
+import { ScheduleService } from './schedules.service';
+import { ScheduleEntity } from './schedules.entity';
+import { ScheduleInput } from './schedules.input';
+import { UserEntity } from '../users/users.entity';
+import { EmployeesService } from '../employees/employees.service';
+import FiltersExpression from '../../base/graphql-filter/types/filters.type';
+import { ServicesService } from '../services/services.service';
+import { GroupsService } from '../groups/groups.service';
+import { OfficesService } from '../offices/offices.service';
+import { BookingsService } from '../bookings/bookings.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+export declare class ScheduleResolver {
+    private readonly scheduleService;
+    private readonly employeeService;
+    private readonly servicesService;
+    private readonly groupService;
+    private readonly officesService;
+    private readonly bookingsService;
+    private readonly eventEmitter;
+    constructor(scheduleService: ScheduleService, employeeService: EmployeesService, servicesService: ServicesService, groupService: GroupsService, officesService: OfficesService, bookingsService: BookingsService, eventEmitter: EventEmitter2);
+    addScheduleEvent(user: UserEntity, companyId: string, payload: ScheduleInput): Promise<ScheduleEntity>;
+    updateScheduleTime(user: UserEntity, id: number, sinceDate?: Date, untilDate?: Date): Promise<ScheduleEntity>;
+    updateScheduleEvent(user: UserEntity, id: number, companyId: string, payload: ScheduleInput): Promise<ScheduleEntity>;
+    getSchedule(user: UserEntity, companyId: string, filters: FiltersExpression[], employeeIds?: Array<number>, sinceDate?: string, untilDate?: string): Promise<Record<string, any>>;
+    getScheduleById(user: UserEntity, id: number): Promise<Record<string, any>>;
+    getScheduleAvailableDates(officeId: number, employeeIds: number[], since: string, until: string, serviceIds?: number[]): Promise<[string, unknown][]>;
+    getScheduleAvailableTimes(officeId: number, serviceIds: number[], employeeIds: number[], dt: string, extraDuration?: number, excludeScheduleIds?: any[], pitch?: number): Promise<[number?, string?][]>;
+    getGroupScheduleEvents(company: string, employeeIds: number[], serviceIds: number[], dt: string): Promise<ScheduleEntity[]>;
+    removeSchedule(user: UserEntity, companyId: string, id: number): Promise<boolean>;
+    cancelSchedule(user: UserEntity, id: number): Promise<ScheduleEntity>;
+    addScheduleToBooking(user: UserEntity, companyId: string, bookingId: number, id: number): Promise<ScheduleEntity>;
+    removeBookingFromSchedule(user: UserEntity, companyId: string, bookingId: number, id: number): Promise<boolean>;
+}
