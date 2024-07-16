@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  backend:
+    environment:
+      VIRTUAL_HOST: '${APP_DOMAIN:-api.stage.zapispro.com}'
+      LETSENCRYPT_HOST: '${APP_DOMAIN:-api.stage.zapispro.com}'
+      LETSENCRYPT_SINGLE_DOMAIN_CERTS: 1
+    env_file:
+      - .env

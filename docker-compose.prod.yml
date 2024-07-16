@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  backend:
+    environment:
+      VIRTUAL_HOST: "api.bookform.by,api.bookform.io"
+      LETSENCRYPT_HOST: "api.bookform.by,api.bookform.io"
+      LETSENCRYPT_SINGLE_DOMAIN_CERTS: 1
+    env_file:
+      - .env.default

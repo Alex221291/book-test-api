@@ -1,0 +1,49 @@
+image:
+  name: docker/compose:latest
+
+before_script:
+  - docker version
+  - docker-compose version
+  - cp .env.default .env
+  - echo "RMQ_URL=$RMQ_URL" >> .env
+  - cat .env
+
+stages:
+  - build
+  - deploy
+
+build-stage:
+  stage: build
+  script:
+    - docker-compose -f docker-compose.yml build --no-cache
+  when: manual
+
+deploy-stage:
+  stage: deploy
+  when: manual
+  needs: [build-stage]
+  script:
+    - docker-compose -f docker-compose.yml up --detach --force-recreate
+
+build-prod:
+  tags:
+    - prod
+  stage: build
+  script:
+    - docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache
+  when: manual
+  only:
+    refs:
+      - master
+
+deploy-prod:
+  tags:
+    - prod
+  stage: deploy
+  when: manual
+  needs: [build-prod]
+  script:
+    - docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --detach --force-recreate
+  only:
+    refs:
+      - master

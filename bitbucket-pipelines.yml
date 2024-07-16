@@ -1,0 +1,28 @@
+image: atlassian/default-image:latest
+clone:
+  depth: full
+
+definitions:
+
+  steps:
+
+    - step: &stage-deployment
+        name: Stage Deployment
+        script:
+          - pipe: atlassian/ssh-run:0.8.0
+            variables:
+              SSH_USER: $STAGE_SSH_USER
+              SERVER: $STAGE_SSH_HOST
+              COMMAND: > 
+                cd /root/repo/bookform-backend/ && 
+                git pull --rebase &&
+                docker-compose down && 
+                docker-compose -f docker-compose.yml -f docker-compose.staging.yml build --no-cache && 
+                docker-compose -f docker-compose.yml -f docker-compose.staging.yml up -d --force-recreate && 
+                docker system prune -a --force
+
+pipelines:
+  branches:
+    '{stage}':
+      - parallel:
+          - step: *stage-deployment
